@@ -9,21 +9,35 @@ def create_field() -> list:
         '13', '14', '15'
     ]
     random.shuffle(tag_lst)
-    tag_lst.append(' ')
+    tag_lst.append('*')
     return tag_lst
 
 
 def draw_field(tag_lst: list) -> str:
-    tag_message = (f"| {tag_lst[0]} | {tag_lst[1]} | {tag_lst[2]} | {tag_lst[3]} | \n"
-                   f"| {tag_lst[4]} | {tag_lst[5]} | {tag_lst[6]} | {tag_lst[7]} | \n"
-                   f"| {tag_lst[8]} | {tag_lst[9]} | {tag_lst[10]} | {tag_lst[11]} | \n"
-                   f"| {tag_lst[12]} | {tag_lst[13]} | {tag_lst[14]} | {tag_lst[15]} |"
-                   )
+    tag_message = ''
+
+    for i in range(0, len(tag_lst)):
+
+        if i % 4 == 0:
+            tag_message += '|'
+
+        if len(tag_lst[i]) == 2:
+            tag_message += f"  {tag_lst[i]}  |"
+        else:
+            tag_message += f"   {tag_lst[i]}   |"
+
+        if (i + 1) % 4 == 0:
+            tag_message += '\n'
+    # tag_message = (f"| {tag_lst[0]} | {tag_lst[1]} | {tag_lst[2]} | {tag_lst[3]} | \n"
+    #                f"| {tag_lst[4]} | {tag_lst[5]} | {tag_lst[6]} | {tag_lst[7]} | \n"
+    #                f"| {tag_lst[8]} | {tag_lst[9]} | {tag_lst[10]} | {tag_lst[11]} | \n"
+    #                f"| {tag_lst[12]} | {tag_lst[13]} | {tag_lst[14]} | {tag_lst[15]} |"
+    #                )
     return tag_message
 
 
 def is_win(field: list) -> bool:
-    win_field = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', ' ']
+    win_field = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '*']
     if field == win_field:
         return True
 

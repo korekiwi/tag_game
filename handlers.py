@@ -8,12 +8,26 @@ import keyboards as kb
 from tag_functions import (create_field, draw_field, is_win, find_empty_y, find_empty_x,
                            is_message_correct, is_move_possible, move_empty_cell)
 
+from text import start_text, help_text
+
 router = Router()
 
 
 class Game(StatesGroup):
     lst = State()
     move = State()
+
+
+@router.message(Command('start'))
+async def start_bot(message: Message, state: FSMContext):
+    await state.clear()
+    await message.answer(start_text)
+
+
+@router.message(Command('help'))
+async def help_bot(message: Message, state: FSMContext):
+    await state.clear()
+    await message.answer(help_text)
 
 
 @router.message(Command('play'))
@@ -38,7 +52,7 @@ async def move(message: Message, state: FSMContext):
     data = await state.get_data()
 
     for i in range(len(data['lst'])):
-        if data['lst'][i] == ' ':
+        if data['lst'][i] == '*':
             empty_cell = i
 
     empty_y = find_empty_y(empty_cell)
